@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <script>
+      (function () {
+        try {
+          let t = localStorage.getItem("pg:theme");
+          if (t !== "dark" && t !== "light") {
+            t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          }
+          document.documentElement.dataset.theme = t;
+        } catch (e) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="El playground de 50 preguntas sobre ejemplos no está optimizado para dispositivos móviles. Usa un PC desktop para la mejor experiencia." />
+    <meta name="theme-color" content="#f7f7f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)" />
+    <title>Usar escritorio · 50 preguntas</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --color-bg: var(--color-bg, #f7f7f5);
+        --color-text: var(--color-text, #161513);
+      }
+      [data-theme="dark"] {
+        --color-bg: #161513;
+        --color-text: #f7f7f5;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100dvh;
+        min-height: 100vh;
+        background: var(--color-bg);
+        color: var(--color-text);
+        font-family: "Inter", sans-serif;
+        text-align: center;
+        padding: 1.5rem;
+      }
+      .msg { max-width: 480px; }
+      .msg h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.75rem; }
+      .msg p { font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.25rem; }
+      .link-github {
+        display: inline-block;
+        padding: 0.6rem 1.2rem;
+        background: #2F6FDF;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 0.4rem;
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+      .link-github:hover { background: #255fc4; }
+    </style>
+  </head>
+  <body>
+    <main class="msg">
+      <h1>Experiencia de usuario limitada en móviles</h1>
+      <p>
+        El playground de
+        <strong>50 preguntas sobre ejemplos</strong> está diseñado y optimizado
+        exclusivamente para pantallas grandes en PCs y laptops.
+      </p>
+      <p>
+        Para una mejor experiencia de usuario, el acceso en dispositivos móviles
+        no está permitido. Te esperamos desde una PC Desktop.
+      </p>
+      <a
+        href="https://github.com/hymsoft/50-preguntas-sobre/tree/main"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link-github"
+        >Ver proyectos en GitHub</a
+      >
+    </main>
+  </body>
+</html>

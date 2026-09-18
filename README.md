@@ -41,6 +41,10 @@ La raíz del repositorio contiene un portal web (`index.html`, `style.css`, `scr
 * **Tema claro/oscuro** — sigue al sistema, conmutable desde el header; el preview muestra cada ejemplo tal cual fue creado.
 * **Sin build** — HTML + CSS + JS puros. Los ejemplos se cargan por URL relativa (`./html/...`), así funciona igual en local y en producción.
 
+> **Nota sobre dispositivos móviles**
+>
+> El playground está pensado para ordenadores de escritorio. En pantallas pequeñas el editor de código y la vista previa no funcionan correctamente, por lo que el acceso desde móviles está restringido. Te recomendamos abrir el sitio desde una computadora para editar, ejecutar y ver los ejemplos en vivo.
+
 ### Probar en local
 
 Serví la carpeta con cualquier servidor estático (no vale doble click al archivo, el `fetch` lo bloquea el navegador):
