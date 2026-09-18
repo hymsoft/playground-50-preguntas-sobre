@@ -927,113 +927,39 @@ html[data-theme="dark"] .console-count {
   padding: 20px;
 }
 
-/* ---------- Bloqueo móvil (el playground es solo desktop) ---------- */
-
-.mobile-blocker {
-  display: none;
-}
-
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
-  .mobile-blocker {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    padding: 24px;
-    background: var(--paper);
-    border-top: 6px solid var(--accent);
+  .layout {
+    flex-direction: column;
   }
 
-  .mb-card {
-    max-width: 340px;
-    text-align: center;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 32px 24px;
+  .sidebar {
+    width: 100%;
+    flex: 0 0 auto;
+    max-height: 240px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
   }
 
-  .mb-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 64px;
-    border-radius: 18px;
-    background: var(--accent-soft);
-    color: var(--accent-ink);
-    font-family: var(--font-mono);
-    font-size: 1.5rem;
-    font-weight: 600;
-    animation: mb-float 3s ease-in-out infinite;
+  .workspace {
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
   }
 
-  .mb-dots {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin: 18px 0 4px;
+  .gutter {
+    display: none;
   }
 
-  .mb-dots i {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-    opacity: 0.3;
-    animation: mb-blink 1.4s ease-in-out infinite;
+  .code-pane,
+  .preview-pane {
+    flex: 1 1 50%;
+    min-height: 240px;
   }
 
-  .mb-dots i:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-
-  .mb-dots i:nth-child(3) {
-    animation-delay: 0.4s;
-  }
-
-  .mb-card h2 {
-    font-size: 1.125rem;
-    letter-spacing: -0.01em;
-    margin: 12px 0 8px;
-  }
-
-  .mb-card p {
-    margin: 0 0 8px;
-    color: var(--ink-2);
-    font-size: 0.875rem;
-    line-height: 1.55;
-  }
-
-  .mb-card .mb-hint {
-    margin-bottom: 0;
-    color: var(--ink-3);
-    font-size: 0.78125rem;
-  }
-}
-
-@keyframes mb-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes mb-blink {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 1;
+  .shortcut-hint {
+    display: none;
   }
 }
 
