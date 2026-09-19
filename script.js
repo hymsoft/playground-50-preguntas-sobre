@@ -96,10 +96,29 @@ const store = {
   },
 };
 
+/**
+ * Construye una URL relativa para el fetch de archivos de un ejemplo.
+ * @param {string} book - Identificador del libro: "html", "css" o "js".
+ * @param {string} rel - Ruta relativa dentro del libro (ej: "ejemplos.json").
+ * @returns {string} URL formateada como `./{book}/{rel}`.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function rawUrl(book, rel) {
   return `./${book}/${rel}`;
 }
 
+/**
+ * Obtiene contenido de texto de una URL con reintentos exponenciales.
+ * @param {string} url - URL a obtener.
+ * @param {number} [retries=2] - Número máximo de reintentos ante fallos de red o servidor (5xx).
+ * @returns {Promise<string>} Texto de la respuesta si `res.ok`.
+ * @rejects {Error} Si falla después de agotar reintentos o el código de estado es 4xx/5xx definitivo.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 async function fetchText(url, retries = 2) {
   let delay = 400;
   for (let attempt = 0; ; attempt++) {
@@ -122,6 +141,13 @@ async function fetchText(url, retries = 2) {
   }
 }
 
+/**
+ * Carga los datos de todos los libros desde sus archivos JSON y selecciona el primer libro disponible.
+ * @fires selectBook - Al terminar, abre el primer libro disponible.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 async function loadBooks() {
   const results = await Promise.all(
     BOOKS.map(async (book) => {
@@ -150,6 +176,12 @@ async function loadBooks() {
   }
 }
 
+/**
+ * Renderiza los botones de navegación de los libros en el header.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function renderBookNav() {
   bookNav.innerHTML = "";
   BOOKS.forEach((book) => {
@@ -169,6 +201,14 @@ function renderBookNav() {
   });
 }
 
+/**
+ * Selecciona un libro activo: actualiza el estado, renderiza la sidebar y abre su primer ejemplo.
+ * @param {string} bookId - Identificador del libro a seleccionar.
+ * @returns {Promise<void>}
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 async function selectBook(bookId) {
   const list = state.booksData[bookId];
   if (!list) return;
@@ -193,6 +233,13 @@ async function selectBook(bookId) {
   if (first) await openExample(first);
 }
 
+/**
+ * Renderiza la barra lateral con los ejemplos agrupados por nivel, aplicando filtro de búsqueda.
+ * @param {Array} list - Lista de ejemplos del libro actual.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function renderSidebar(list) {
   sidebarScroll.innerHTML = "";
   sidebarEmpty.hidden = true;
@@ -270,6 +317,13 @@ function renderSidebar(list) {
   if (!filtered.length) sidebarEmpty.hidden = false;
 }
 
+/**
+ * Resalta el ejemplo seleccionado en la barra lateral y lo desplaza a la vista si está colapsado.
+ * @param {string} url - URL del ejemplo resaltar.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function highlightSidebar(url) {
   const items = sidebarScroll.querySelectorAll(".example-item");
   let target = null;
@@ -293,6 +347,16 @@ function highlightSidebar(url) {
   }
 }
 
+/**
+ * Carga los archivos (index.html, y detecta style.css/script.js) de un ejemplo, aplicando contenido guardado si está disponible.
+ * @param {string} book - Identificador del libro.
+ * @param {string} folder - Carpeta del ejemplo.
+ * @param {boolean} useSaved - Si es true, usa el contenido guardado en localStorage.
+ * @returns {Promise<{files:Object, contents:Object, available:Array<string>}|null>} Datos de los archivos o null si no hay index.html.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 async function loadFiles(book, folder, useSaved) {
   const files = {};
   const contents = {};
@@ -335,6 +399,15 @@ async function loadFiles(book, folder, useSaved) {
   return { files, contents, available };
 }
 
+/**
+ * Abre un ejemplo: persiste el estado actual, carga sus archivos y los muestra en el editor y preview.
+ * @param {Object} item - Objeto del ejemplo con `carpeta`, `url`, `titulo`, etc.
+ * @returns {Promise<void>}
+ * @fires persistCurrent, highlightSidebar, loadFiles, ensureMonaco, getOjos, schedulePreview
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 async function openExample(item) {
   persistCurrent(true);
   $("status").textContent = `Leyendo ${item.carpeta}…`;
@@ -372,6 +445,14 @@ async function openExample(item) {
   $("status").textContent = `Leyendo desde ${GITHUB_BRANCH}`;
 }
 
+/**
+ * Renderiza las pestañas de archivos (index.html, style.css, script.js) en la barra de pestañas.
+ * @param {string[]} names - Nombres de los archivos disponibles.
+ * @fires refreshTabs - Al finalizar, actualiza estado dirty.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function renderTabs(names) {
   tabsEl.innerHTML = "";
   names.forEach((name) => {
@@ -386,12 +467,26 @@ function renderTabs(names) {
   refreshTabs();
 }
 
+/**
+ * Actualiza el estado "dirty" (modificado) de todas las pestañas según el modelo del editor.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function refreshTabs() {
   tabsEl.querySelectorAll(".tab").forEach((btn) => {
     btn.classList.toggle("dirty", Boolean(state.editing[btn.dataset.file]));
   });
 }
 
+/**
+ * Garantiza que el editor Monaco esté cargado antes de ejecutar un callback. Si ya está listo, ejecuta de inmediato.
+ * @param {Function} cb - Callback a ejecutar una vez Monaco está disponible.
+ * @returns {Promise} Resolución del callback (o null si falla la carga).
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function ensureMonaco(cb) {
   if (monaco) return Promise.resolve(cb());
   return new Promise((resolve) => {
@@ -445,6 +540,16 @@ function ensureMonaco(cb) {
   });
 }
 
+/**
+ * Crea o reutiliza un modelo de texto de Monaco para un archivo.
+ * @param {string} name - Nombre del archivo (determina el lenguaje).
+ * @param {string} content - Contenido inicial del modelo.
+ * @returns {monaco.editor.ITextModel} Modelo de texto listo para el editor.
+ * @fires refreshTabs, schedulePreview - Al cambiar contenido (si autoplay está activo).
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function getModel(name, content) {
   if (state.textModels[name]) return state.textModels[name];
   const model = monaco.editor.createModel(content, LANG_BY_FILE[name] || "html");
@@ -459,6 +564,14 @@ function getModel(name, content) {
   return model;
 }
 
+/**
+ * Crea o cambia el editor Monaco activo para un archivo específico.
+ * @param {string} name - Nombre del archivo a mostrar en el editor.
+ * @fires persistCurrent - Al perder foco del editor.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function buildEditor(name) {
   tabsEl.querySelectorAll(".tab").forEach((b) => {
     if (b.dataset.file === name) b.setAttribute("aria-current", "true");
@@ -487,6 +600,12 @@ function buildEditor(name) {
   }
 }
 
+/**
+ * Destruye el editor Monaco activo (y sus modelos) y muestra el skeleton de carga.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function destroyEditor() {
   if (editor) {
     editor.dispose();
@@ -502,11 +621,26 @@ function destroyEditor() {
 
 let debounceTimer = null;
 
+/**
+ * Programa una actualización del preview con debounce. Si ya hay una pendiente, la reemplaza.
+ * @param {number} delay - Milisegundos de espera antes de ejecutar `updatePreview`.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function schedulePreview(delay) {
   clearTimeout(debounceTimer);
   debounceTimer = setTimeout(() => updatePreview(), delay);
 }
 
+/**
+ * Obtiene el valor actual de un archivo: contenido editado del modelo, o el original si no hay editor.
+ * @param {string} name - Nombre del archivo ("index.html", "style.css" o "script.js").
+ * @returns {string|undefined} Contenido actual del archivo.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function currentValue(name) {
   const model = state.textModels[name];
   if (model) return model.getValue();
@@ -569,15 +703,35 @@ const LOG_BADGE = {
   debug: "·",
 };
 
+/**
+ * Verifica si el libro actual es JavaScript y el ejemplo contiene archivo script.js.
+ * @returns {boolean} True si hay un ejemplo con JS cargado.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function hasJsExample() {
   return state.book === "js" && state.files["script.js"] != null;
 }
 
+/**
+ * Mueststra u oculta el panel de consola JS.
+ * @param {boolean} show - True para mostrar, false para ocultar.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function setConsoleVisible(show) {
   if (!consolePane) return;
   consolePane.dataset.visible = show ? "true" : "false";
 }
 
+/**
+ * Actualiza el estado visual de "consola vacía" y el contador de logs.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function updateConsoleEmpty() {
   const empty = consoleLog.childElementCount === 0;
   consoleEmpty.hidden = !empty;
@@ -585,12 +739,28 @@ function updateConsoleEmpty() {
   if (consoleTotal > 0) consoleCount.textContent = String(consoleTotal);
 }
 
+/**
+ * Limpia todos los mensres de la consola de JavaScript y reinicia el contador.
+ * @fires updateConsoleEmpty - Al limpiar, actualiza estado visual.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function clearConsole() {
   consoleLog.innerHTML = "";
   consoleTotal = 0;
   updateConsoleEmpty();
 }
 
+/**
+ * Añade una entrada de log a la consola con sello de tiempo y nivel (log/info/warn/error).
+ * @param {string} level - Nivel del log: "log", "info", "warn", "error", "debug" o "__clear".
+ * @param {string} text - Mensaje a mostrar.
+ * @fires updateConsoleEmpty - Al añadir, actualiza estado visual y contador.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function appendLog(level, text) {
   if (level === "__clear") {
     clearConsole();
@@ -649,6 +819,13 @@ btnConsoleToggle?.addEventListener("click", () => {
 let ojosCache = null;
 let ojosPromise = null;
 
+/**
+ * Carga el helper compartido de "ojos" (js/ojos.js) con caché y promesa única.
+ * @returns {Promise<string|null>} Código del helper cacheado, o null si falla.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function getOjos() {
   if (ojosCache != null) return Promise.resolve(ojosCache);
   if (!ojosPromise) {
@@ -662,6 +839,14 @@ function getOjos() {
   return ojosPromise;
 }
 
+/**
+ * Construye un documento HTML completo (srcdoc) inyectando el CSS y JS del ejemplo inline.
+ * @param {boolean} [includeConsole=true] - Si es true y el libro es JS, inyecta el shim de consola.
+ * @returns {string|void} HTML listo para el iframe preview.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function combinedDoc(includeConsole = true) {
   let html = currentValue("index.html") ?? state.files["index.html"] ?? "";
   const css = currentValue("style.css");
@@ -697,6 +882,13 @@ function combinedDoc(includeConsole = true) {
   return html;
 }
 
+/**
+ * Actualiza el iframe de preview con el código actual, limpiando y configurando la consola.
+ * @fires combinedDoc, clearConsole, setConsoleVisible, persistCurrent
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function updatePreview() {
   const doc = combinedDoc(true);
   if (!doc) return;
@@ -708,6 +900,13 @@ function updatePreview() {
 
 let lastPersist = 0;
 
+/**
+ * Persiste el contenido editado de los archivos actuales en localStorage (con throttle de 2s).
+ * @param {boolean} [force=false] - Si es true, fuerza el guardado ignorando el throttle.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function persistCurrent(force = false) {
   if (!state.current) return;
   const now = Date.now();
@@ -720,6 +919,13 @@ function persistCurrent(force = false) {
   });
 }
 
+/**
+ * Restablece el ejemplo actual a su estado original borrando los datos guardados en localStorage.
+ * @fires loadFiles, renderTabs, buildEditor, clearConsole, schedulePreview
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 async function resetExample() {
   const item = state.current;
   if (!item) return;
@@ -749,6 +955,12 @@ async function resetExample() {
   schedulePreview(0);
 }
 
+/**
+ * Abre el ejemplo actual en una nueva pestaña como archivo HTML descargable.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function openInNewTab() {
   const doc = combinedDoc(false);
   if (!doc) return;
@@ -769,16 +981,37 @@ const ICON_MOON =
 const ICON_SUN =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>';
 
+/**
+ * Devuelve el tema actual aplicado al documento ("dark" o "light").
+ * @returns {string} "dark" o "light".
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function currentTheme() {
   return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
 }
 
+/**
+ * Actualiza el icono y etiqueta accesible del botón de toggle de tema.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function paintThemeButton() {
   const dark = currentTheme() === "dark";
   btnTheme.innerHTML = dark ? ICON_SUN : ICON_MOON;
   btnTheme.setAttribute("aria-label", dark ? "Cambiar a tema claro" : "Cambiar a tema oscuro");
 }
 
+/**
+ * Aplica un tema (claro/oscuro) al documento, al editor Monaco y lo persiste en localStorage.
+ * @param {string} theme - "light" o "dark".
+ * @param {boolean} [persist=true] - Si es true, guarda la preferencia en localStorage.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function applyTheme(theme, persist = true) {
   document.documentElement.dataset.theme = theme;
   if (persist) {
@@ -870,6 +1103,13 @@ btnCollapse.addEventListener("click", () => {
   }
 });
 
+/**
+ * Inicia la interacción de redimensionamiento arrastrando el gripper vertical entre editor y preview.
+ * @param {PointerEvent} event - Evento pointerdown del gripper.
+ * @author Hugo Segura
+ * @company HyM Soft
+ * @date 2026
+ */
 function startResize(event) {
   event.preventDefault();
   gutter.classList.add("active");
