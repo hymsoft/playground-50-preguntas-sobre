@@ -122,8 +122,6 @@ async function fetchText(url, retries = 2) {
   }
 }
 
-/* ---------- Libros ---------- */
-
 async function loadBooks() {
   const results = await Promise.all(
     BOOKS.map(async (book) => {
@@ -194,8 +192,6 @@ async function selectBook(bookId) {
   const first = list[0];
   if (first) await openExample(first);
 }
-
-/* ---------- Sidebar ---------- */
 
 function renderSidebar(list) {
   sidebarScroll.innerHTML = "";
@@ -297,8 +293,6 @@ function highlightSidebar(url) {
   }
 }
 
-/* ---------- Ejemplos ---------- */
-
 async function loadFiles(book, folder, useSaved) {
   const files = {};
   const contents = {};
@@ -397,8 +391,6 @@ function refreshTabs() {
     btn.classList.toggle("dirty", Boolean(state.editing[btn.dataset.file]));
   });
 }
-
-/* ---------- Monaco ---------- */
 
 function ensureMonaco(cb) {
   if (monaco) return Promise.resolve(cb());
@@ -508,8 +500,6 @@ function destroyEditor() {
     "<div class='skeleton' role='status'><span class='spinner' aria-hidden='true'></span><span>Cargando ejemplo…</span></div>";
 }
 
-/* ---------- Preview ---------- */
-
 let debounceTimer = null;
 
 function schedulePreview(delay) {
@@ -522,8 +512,6 @@ function currentValue(name) {
   if (model) return model.getValue();
   return state.files[name]; // solo sin editor: original
 }
-
-/* ---------- Consola JS (solo lectura, solo libro js) ---------- */
 
 const CONSOLE_MAX = 200;
 
@@ -658,8 +646,6 @@ btnConsoleToggle?.addEventListener("click", () => {
   btnConsoleToggle.textContent = collapsed ? "Mostrar" : "Ocultar";
 });
 
-/* ---------- Helper compartido js/ojos.js ---------- */
-
 let ojosCache = null;
 let ojosPromise = null;
 
@@ -776,8 +762,6 @@ function openInNewTab() {
   }
 }
 
-/* ---------- Tema ---------- */
-
 const THEME_KEY = "pg:theme";
 
 const ICON_MOON =
@@ -829,8 +813,6 @@ try {
   /* sin almacenamiento */
 }
 paintThemeButton();
-
-/* ---------- Acciones ---------- */
 
 window.addEventListener("keydown", (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
@@ -887,8 +869,6 @@ btnCollapse.addEventListener("click", () => {
     search.disabled = false;
   }
 });
-
-/* ---------- Gutter ---------- */
 
 function startResize(event) {
   event.preventDefault();

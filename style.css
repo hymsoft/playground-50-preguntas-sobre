@@ -143,8 +143,6 @@ button {
   top: 8px;
 }
 
-/* ---------- Header ---------- */
-
 .app-header {
   display: flex;
   align-items: center;
@@ -247,16 +245,12 @@ button {
   white-space: nowrap;
 }
 
-/* ---------- Layout ---------- */
-
 .layout {
   flex: 1;
   min-height: 0;
   display: flex;
   gap: 0;
 }
-
-/* ---------- Sidebar ---------- */
 
 .sidebar {
   width: 300px;
@@ -441,8 +435,6 @@ button {
   font-size: 0.875rem;
 }
 
-/* ---------- Workspace ---------- */
-
 .workspace {
   flex: 1;
   min-width: 0;
@@ -466,8 +458,6 @@ button {
 .preview-pane {
   flex: 1 1 50%;
 }
-
-/* ---------- Code ---------- */
 
 .code-tabs {
   display: flex;
@@ -574,8 +564,6 @@ button {
   }
 }
 
-/* ---------- Gutter ---------- */
-
 .gutter {
   width: 6px;
   cursor: col-resize;
@@ -591,8 +579,6 @@ button {
 .gutter.active {
   background: var(--accent);
 }
-
-/* ---------- Preview ---------- */
 
 .preview-chrome {
   display: flex;
@@ -693,7 +679,6 @@ button {
   background: #fff; /* preview siempre claro: muestra el ejemplo tal cual fue creado */
 }
 
-/* ---------- Consola JS (solo libro js, solo lectura) ---------- */
 /* Colores de referencia DISENO.md · JS:
    amarillo #F7DF1E · amarillo_osc #F0DB4F · fondo_suave #FFFBEA ·
    oscuro #1A1A1A · fondo_codigo #1D2433 · texto_codigo #A2AABC */
@@ -873,8 +858,6 @@ html[data-theme="dark"] .console-count {
   color: #1a1a1a;
 }
 
-/* ---------- Footer ---------- */
-
 .app-footer {
   display: flex;
   align-items: center;
@@ -926,8 +909,6 @@ html[data-theme="dark"] .console-count {
 .noscript {
   padding: 20px;
 }
-
-/* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
   .layout {
