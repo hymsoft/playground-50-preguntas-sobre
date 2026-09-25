@@ -9,7 +9,11 @@ function handleClick(event) {
 boton.addEventListener("click", handleClick);
 
 // --- Usar opciones ---
-// once: solo se ejecuta una vez
+// once: el manejador se ejecuta una sola vez y se
+// autoelimina. Atención: este listener está sobre el MISMO
+// botón que el anterior, así que el primer clic dispara LOS
+// DOS; recién ahí este se elimina y los clics siguientes solo
+// ejecutan handleClick.
 boton.addEventListener("click", function () {
   console.log("Esto se ejecuta solo una vez");
 }, { once: true });

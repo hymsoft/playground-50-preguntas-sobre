@@ -9,11 +9,12 @@ body {
   color: #333;
 }
 
-/*El color se hereda de padre a hijo*/
+/*El color se hereda de padre a hijo, pero el padding NO:
+  cada hijo necesitaría declararlo con padding: inherit*/
 .padre {
   color: blue;
+  padding: 20px;
   margin-bottom: 40px;
-  padding: 10px;
   border: 2px dashed #bbb;
   background: #fff;
   max-width: 600px;
@@ -34,10 +35,3 @@ body {
   max-width: 600px;
   margin-inline: auto;
 }
-
-/*El padding NO se hereda*/
-.padre {
-  padding: 20px;
-}
-
-/*Los hijos NO tendrán padding automáticamente*/

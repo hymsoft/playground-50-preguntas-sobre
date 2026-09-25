@@ -1,6 +1,6 @@
 // Crear arrays
 let numeros = [1, 2, 3, 4, 5];
-let frutas = new Array('manzana', 'banana');
+let frutas = ['manzana', 'banana']; // forma recomendada (evitar new Array(...))
 let mixto = [1, 'texto', true, null];
 
 // Acceder a elementos

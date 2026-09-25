@@ -23,6 +23,9 @@ async function crearUsuario(usuario) {
       },
       body: JSON.stringify(usuario),
     });
+    if (!respuesta.ok) {
+      throw new Error(`Error HTTP: ${respuesta.status}`);
+    }
     const nuevoUsuario = await respuesta.json();
     console.log("Usuario creado:", nuevoUsuario);
   } catch (error) {

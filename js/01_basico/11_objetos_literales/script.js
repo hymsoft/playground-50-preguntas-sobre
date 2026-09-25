@@ -38,5 +38,8 @@ console.log(calculadora.sumar(5, 3));  // 8
 console.log(calculadora.restar(5, 3)); // 2
 
 // Verificar si existe una propiedad
-console.log('nombre' in persona);      // true
-console.log(persona.hasOwnProperty('edad')); // true
+console.log('nombre' in persona); // true
+console.log(Object.hasOwn(persona, 'edad')); // true (ES2022)
+// Forma anterior: persona.hasOwnProperty('edad').
+// Es frágil porque falla si el objeto redefine esa clave,
+// por eso se prefiere Object.hasOwn()

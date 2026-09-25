@@ -63,9 +63,11 @@ body {
   justify-content: center;
 }
 
-/*Tamaño de fuente responsivo*/
+/*Tamaño de fuente responsivo: crece con el viewport (5vw)
+  pero con límites mínimo y máximo.
+  clamp() se explica en la pregunta 38*/
 .titulo {
-  font-size: 5vw;
+  font-size: clamp(1.5rem, 5vw, 3rem);
   background: #4a90e2;
   color: white;
   padding: 20px;

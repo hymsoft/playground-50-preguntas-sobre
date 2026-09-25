@@ -31,8 +31,8 @@ sessionStorage.setItem("token", "abc123");
 const token = sessionStorage.getItem("token");
 console.log(token); // "abc123"
 
-// Los datos se borran al cerrar la pestaña
-// sessionStorage.clear(); // se ejecuta automáticamente al cerrar
+// No hace falta llamar a sessionStorage.clear(): el navegador
+// descarta sessionStorage al cerrar la pestaña
 
 // --- Diferencia: ámbito por pestaña ---
 // Si se abre otra pestaña, tendrá su propio sessionStorage

@@ -52,7 +52,10 @@ body {
   background: #7ed321;
 }
 
-/*Grid básica con tres columnas*/
+/*Grid básica con tres columnas.
+  Sin filas ni áreas explícitas, los ítems se colocan solos
+  (auto-placement) en el orden del HTML: no forma el layout
+  de header/sidebar/footer, para eso están las áreas de abajo*/
 .grid-basica {
   display: grid;
   grid-template-columns: 200px 1fr 200px;

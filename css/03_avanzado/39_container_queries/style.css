@@ -48,6 +48,9 @@ body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f4
 
   .widget-contenido {
     display: flex;
+    /*de momento en columna: el paso a horizontal ocurre
+      en el breakpoint siguiente*/
+    flex-direction: column;
     gap: 1rem;
   }
 }
@@ -59,6 +62,7 @@ body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f4
   }
 
   .widget-contenido {
+    /*aquí sí cambia la disposición: vertical → horizontal*/
     flex-direction: row;
   }
 }

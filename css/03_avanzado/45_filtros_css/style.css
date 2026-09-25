@@ -1,4 +1,5 @@
-body { font-family: Arial, sans-serif; margin: 0 auto; padding: 20px; background: #f4f4f4; color: #333; max-width: 800px; margin-inline: auto; box-sizing: border-box; }
+/*Fondo con una imagen para que la tarjeta de vidrio tenga contenido detrás que desenfocar*/
+body { font-family: Arial, sans-serif; margin: 0 auto; padding: 20px; background: url("paisaje.jpg") center / cover no-repeat fixed; color: #333; max-width: 800px; margin-inline: auto; box-sizing: border-box; }
 
 /*Efecto hover con desenfoque*/
 .imagen {
@@ -18,6 +19,7 @@ body { font-family: Arial, sans-serif; margin: 0 auto; padding: 20px; background
 /*Tarjeta con efecto vidrio esmerilado*/
 .tarjeta-glass {
   background: rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
@@ -63,4 +65,12 @@ img.galeria-img:nth-of-type(4) { background: #7ed321; }
 
 .galeria-img:hover {
   filter: grayscale(0%);
+}
+
+/*Sin soporte de backdrop-filter, el vidrio casi transparente
+  no se nota: se reemplaza por un fondo translúcido más sólido*/
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .tarjeta-glass {
+    background: rgba(255, 255, 255, 0.85);
+  }
 }

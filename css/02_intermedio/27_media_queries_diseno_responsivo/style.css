@@ -9,7 +9,6 @@ body {
 /*Estilos base (mobile-first)*/
 .container {
   padding: 1rem;
-  max-width: 100%;
   margin-bottom: 40px;
   border: 2px dashed #bbb;
   background: #fff;

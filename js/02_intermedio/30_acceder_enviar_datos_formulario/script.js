@@ -1,14 +1,15 @@
-// archivo: script.js
 const formulario = document.querySelector("#formulario-registro");
-
-// --- Acceder a campos directamente ---
-const nombre = formulario.elements["nombre"].value;
-const email = formulario.elements["email"].value;
-console.log(nombre, email);
 
 // --- Usar FormData ---
 formulario.addEventListener("submit", function (event) {
   event.preventDefault(); // evita que la página se recargue
+
+  // --- Acceder a campos directamente ---
+  // Se hace dentro del submit: antes de enviar, los .value
+  // estarían vacíos (el usuario todavía no escribió nada)
+  const nombreDirecto = formulario.elements["nombre"].value;
+  const emailDirecto = formulario.elements["email"].value;
+  console.log(nombreDirecto, emailDirecto);
 
   const formData = new FormData(formulario);
 

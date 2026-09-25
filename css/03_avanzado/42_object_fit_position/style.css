@@ -28,18 +28,18 @@ body { font-family: Arial, sans-serif; margin: 0 auto; padding: 20px; background
   border-radius: 6px;
 }
 
-/*Video con posicion personalizada*/
+/*Video: contain para no recortar el contenido (subtítulos,
+  bordes de la escena); fondo negro para las bandas que queden*/
 .video {
   width: 100%;
   max-width: 600px;
   aspect-ratio: 16 / 9;
-  object-fit: cover;
-  object-position: 50% 30%;
+  object-fit: contain;
+  background-color: #000;
   display: block;
   margin-bottom: 40px;
   padding: 10px;
   border: 2px dashed #bbb;
-  background: #f5a623;
   border-radius: 6px;
 }
 

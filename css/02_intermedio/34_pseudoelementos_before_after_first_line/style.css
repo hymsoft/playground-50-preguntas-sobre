@@ -93,8 +93,9 @@ article > p:first-of-type::first-letter {
   color: #333;
 }
 
-/*Selección de texto amarilla*/
-::selection {
+/*Selección de texto amarilla, acotada al artículo:
+  un ::selection global afectaría a todo el sitio*/
+article ::selection {
   background: yellow;
   color: black;
 }

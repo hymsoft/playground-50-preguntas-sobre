@@ -12,7 +12,7 @@ h2 {
 }
 
 p {
-  font-size: clamp(1rem, 2vw, 1.125rem);
+  font-size: clamp(1rem, 2vw, 1.5rem);
   background: #4a90e2;
   color: white;
   padding: 20px;
@@ -27,6 +27,8 @@ p {
 /*Layout responsivo sin media queries*/
 .tarjeta {
   width: clamp(280px, 80%, 400px);
+  /*evita que la tarjeta desborde en viewports de menos de 280px*/
+  max-width: 100%;
   margin: clamp(1rem, 3vw, 2rem) auto;
   padding: clamp(1rem, 2vw, 1.5rem);
   background: #50e3c2;

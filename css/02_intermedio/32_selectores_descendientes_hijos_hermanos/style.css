@@ -54,7 +54,8 @@ h2 ~ p {
 }
 
 /*Selector hermano adyacente: primer párrafo después de h2 */
-/* Va después para que gane por cascada (misma especificidad) y se vea la diferencia*/
+/* Va después para que gane por cascada (misma especificidad):
+  el primer párrafo queda #333 y el resto sigue en #555*/
 h2 + p {
   font-size: 1.2rem;
   color: #333;

@@ -1,6 +1,10 @@
 // --- this en contexto global ---
-console.log(this === window); // true en un script clásico (dentro de una función
-// llamada sin contexto, this sería undefined en modo estricto)
+// En un <script> clásico, this es window; en un módulo
+// (type="module") this es undefined en el nivel superior:
+// ver Pregunta 41
+console.log(this === window); // true en un script clásico
+// (dentro de una función llamada sin contexto, this sería
+// undefined en modo estricto)
 
 // --- this en método de objeto ---
 const persona = {

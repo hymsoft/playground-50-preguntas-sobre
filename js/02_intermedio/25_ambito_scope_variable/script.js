@@ -2,8 +2,10 @@
 var globalVar = "Soy global";
 let globalLet = "Soy global también";
 
-// var se adhiere al objeto global; let/const, no:
-console.log(window.globalVar); // "Soy global"
+// En un <script> clásico, var se adhiere al objeto global
+// (window) y let/const no. En un módulo (type="module")
+// ninguna variable se adhiere a window: ver Pregunta 41
+console.log(window.globalVar); // "Soy global" (script clásico)
 console.log(window.globalLet); // undefined
 
 function ejemplo() {

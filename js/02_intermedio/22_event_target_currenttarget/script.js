@@ -14,8 +14,18 @@ lista.addEventListener("click", function (event) {
   console.log("this:", this);
   console.log("Son iguales:", this === event.currentTarget); // true
 
-  // Usar target para manejar clics en elementos hijos
+  // Usar target para manejar clics en elementos hijos.
+  // Patrón frágil: ver el cierre del ejemplo y la pregunta 48
   if (event.target.tagName === "BUTTON") {
     console.log("Se hizo clic en un botón:", event.target.textContent);
   }
 });
+
+// El chequeo event.target.tagName === "BUTTON" funciona cuando
+// el clic cae directamente sobre el botón, pero es frágil: si
+// el clic cae en un hijo del botón (por ejemplo un <span>
+// interno), target apunta a ese hijo y la condición no se
+// cumple. La forma robusta es event.target.closest("button"),
+// que busca el ancestro más cercano que coincida con el
+// selector; la limitación de este patrón naive y su solución
+// se analizan en la pregunta 48 (delegación de eventos).

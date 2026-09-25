@@ -1,5 +1,6 @@
 :root {
   --color-fondo: #ffffff;
+  --color-superficie: #f4f4f8;
   --color-texto: #333333;
   --tamano-base: 16px;
 }
@@ -20,6 +21,9 @@ body {
 /*Sobreescribir variables en un contexto*/
 .tema-oscuro {
   --color-fondo: #1a1a2e;
+  /*superficie distinta del fondo para que la tarjeta
+    se note sobre el fondo del tema*/
+  --color-superficie: #26264a;
   --color-texto: #e0e0e0;
   background-color: var(--color-fondo);
   color: var(--color-texto);
@@ -32,7 +36,7 @@ body {
 }
 
 .tema-oscuro .tarjeta {
-  background-color: var(--color-fondo);
+  background-color: var(--color-superficie);
   color: var(--color-texto);
 }
 
@@ -48,6 +52,7 @@ body {
 .tarjeta {
   padding: var(--tamano-base);
   border: 1px solid var(--color-texto);
+  background-color: var(--color-superficie);
   border-radius: 6px;
   text-align: center;
   font-weight: bold;

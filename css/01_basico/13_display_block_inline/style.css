@@ -49,7 +49,9 @@ body {
   margin-inline: auto;
 }
 
-/*Ninguno*/
+/*Ninguno: display: none oculta el elemento también
+  para los lectores de pantalla (para ocultarlo solo
+  visualmente, ver la técnica de la pregunta 50)*/
 .oculto {
   display: none;
 }

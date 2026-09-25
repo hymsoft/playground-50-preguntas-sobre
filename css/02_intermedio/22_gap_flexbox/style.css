@@ -52,7 +52,11 @@ body {
   background: #fff;
 }
 
-/*Con margin (requiere ajustes para el primer/último)*/
+/*Con margin (requiere ajustes para el primer/último).
+  Ojo: además del espacio entre ítems, este método deja
+  8px de margen en los bordes superior e inferior del
+  contenedor, que la versión con gap no genera:
+  la comparación no es exactamente 1:1*/
 .con-margin {
   display: flex;
   max-width: 600px;

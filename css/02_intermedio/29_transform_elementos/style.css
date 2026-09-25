@@ -62,7 +62,10 @@ body {
   transform: rotate(30deg) scale(1.2) translateX(50px);
 }
 
-/*Cambio de origen de transformación*/
+/*Cambio de origen de transformación.
+  Al rotar desde la esquina superior izquierda, la caja girada
+  puede desbordar su sitio (y hasta provocar scroll horizontal);
+  si el desborde molesta, acotalo con overflow en el contenedor*/
 .origen-superior {
   transform-origin: top left;
   transform: rotate(45deg);

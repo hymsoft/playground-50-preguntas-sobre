@@ -9,7 +9,7 @@ body { font-family: Arial, sans-serif; margin: 0 auto; padding: 20px; background
   background: #3498db;
   width: 100%;
   transform-origin: left;
-  animation: crecer linear;
+  animation: crecer linear auto;
   animation-timeline: scroll();
 }
 
@@ -20,7 +20,7 @@ body { font-family: Arial, sans-serif; margin: 0 auto; padding: 20px; background
 
 /*Elementos que aparecen al hacer scroll*/
 .seccion {
-  animation: aparecer ease-out both;
+  animation: aparecer ease-out both auto;
   animation-timeline: view();
   animation-range: entry 10% cover 40%;
   margin-bottom: 40px;
@@ -54,10 +54,12 @@ body { font-family: Arial, sans-serif; margin: 0 auto; padding: 20px; background
   }
 }
 
-/*Contador animado por scroll*/
-.contador {
+/*Número que aparece con el scroll (escala y opacidad,
+  no cuenta: para un contador real haría falta JavaScript
+  o CSS counters con animation-timeline)*/
+.numero-destacado {
   display: inline-block;
-  animation: contar linear;
+  animation: crecer-numero linear auto;
   animation-timeline: scroll();
   background: #d0021b;
   color: white;
@@ -67,7 +69,7 @@ body { font-family: Arial, sans-serif; margin: 0 auto; padding: 20px; background
   font-weight: bold;
 }
 
-@keyframes contar {
+@keyframes crecer-numero {
   from {
     transform: scale(0.5);
     opacity: 0.5;

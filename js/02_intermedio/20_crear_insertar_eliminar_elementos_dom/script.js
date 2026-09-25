@@ -28,11 +28,17 @@ nuevoDiv.textContent = "Contenido adyacente";
 div.insertAdjacentElement("afterend", nuevoDiv);
 
 // --- Eliminar elementos ---
-const elementoAEliminar = document.querySelector(".obsoleto");
-elementoAEliminar.remove(); // forma moderna
+// Elegí una de las dos opciones, no las dos seguidas:
+// si ejecutás la B después de la A, el elemento ya fue
+// eliminado y la B no tiene nada que borrar.
 
-// Alternativa: eliminar desde el padre
-const padre = elementoAEliminar.parentNode;
-if (padre) {
-  padre.removeChild(elementoAEliminar);
-}
+// OPCIÓN A: forma moderna
+const elementoAEliminar = document.querySelector(".obsoleto");
+elementoAEliminar.remove();
+
+// OPCIÓN B (comentar la A antes de usar): eliminar desde el padre
+// const elementoAEliminar = document.querySelector(".obsoleto");
+// const padre = elementoAEliminar.parentNode;
+// if (padre) {
+//   padre.removeChild(elementoAEliminar);
+// }

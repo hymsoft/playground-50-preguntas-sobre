@@ -13,6 +13,10 @@ body {
 .galeria {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  /*filas explícitas: la subgrid de cada tarjeta se apoya en
+    estas tres filas, por eso los títulos (fila 2) arrancan
+    en la misma línea horizontal de todas las tarjetas*/
+  grid-template-rows: repeat(3, auto);
   gap: 1.5rem;
   margin-bottom: 40px;
   padding: 10px;

@@ -73,7 +73,7 @@ body {
 
 .hijo-especial {
   color: inherit;    /*Hereda blue del padre */
-  font-size: initial; /* Resetea a 1rem (valor por defecto)*/
+  font-size: initial; /*Resetea a medium (≈16px en la mayoría de navegadores)*/
   background: #f8e71c;
   padding: 20px;
   border-radius: 6px;

@@ -42,7 +42,7 @@ body {
 
 /*Color con RGB*/
 .texto-verde {
-  color: rgb(0, 255, 0);
+  color: rgb(0, 128, 0);
   background: #fff;
   padding: 20px;
   border-radius: 6px;
@@ -72,7 +72,8 @@ body {
   margin-inline: auto;
 }
 
-/*Fondo con gradiente simple*/
+/*Fondo con gradiente simple (la propiedad background con
+  linear-gradient se explica en la pregunta 44)*/
 .degradado {
   background: linear-gradient(to right, #ff0000, #0000ff);
   color: white;

@@ -60,12 +60,15 @@ tr:nth-child(odd) td {
   outline-offset: 2px;
 }
 
-/*Filas alternas en tablas*/
-tr:nth-child(even) {
+/*Filas alternas en tablas.
+  Se acota a tbody: :nth-child cuenta por padre, así que con
+  thead/tbody separados un tr:nth-child(even) global contaría
+  mal (y afectaría a todas las tablas del sitio)*/
+tbody tr:nth-child(even) {
   background: #f5f5f5;
 }
 
-tr:nth-child(even) td {
+tbody tr:nth-child(even) td {
   background: #f5f5f5;
   color: #333;
 }

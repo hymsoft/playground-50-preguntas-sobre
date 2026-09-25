@@ -21,12 +21,12 @@ console.log(html);
 
 // Llamadas a funciones dentro de ${}
 function calcularEdad(anioNacimiento) {
-  return 2024 - anioNacimiento;
+  return new Date().getFullYear() - anioNacimiento;
 }
 
 let anio = 1990;
 let info = `Nací en ${anio} y tengo ${calcularEdad(anio)} años`;
-console.log(info); // "Nací en 1990 y tengo 34 años"
+console.log(info); // "Nací en 1990 y tengo N años" (N = año actual - 1990)
 
 // Template literals vs concatenación
 let viejo = 'Hola, ' + nombre + '. Tienes ' + edad + ' años.';

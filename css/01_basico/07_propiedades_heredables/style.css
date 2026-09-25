@@ -9,9 +9,10 @@ body {
   color: #333;
 }
 
-/*Forzar herencia de padding con inherit*/
+/*Forzar herencia de padding con inherit y resetear el color con initial*/
 .hijo {
   padding: inherit;
+  color: initial;
   background: #f8e71c;
   border-radius: 6px;
   text-align: center;
@@ -23,18 +24,14 @@ body {
   margin-inline: auto;
 }
 
-/*Resetear herencia con initial*/
-.hijo {
-  color: initial;
-}
-
-/*Ejemplo práctico: un contenedor con estilos heredados*/
+/*Ejemplo práctico: un contenedor con estilos heredados.
+  El padding SÍ se declara para que .hijo pueda heredarlo con inherit*/
 .contenedor {
   font-family: Arial, sans-serif;
   color: #333;
   line-height: 1.6;
   margin-bottom: 40px;
-  padding: 10px;
+  padding: 20px;
   border: 2px dashed #bbb;
   background: #fff;
   max-width: 600px;

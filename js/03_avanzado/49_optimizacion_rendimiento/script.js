@@ -16,11 +16,22 @@ document.querySelectorAll("img[data-src]").forEach((imagen) => {
   observer.observe(imagen);
 });
 
-// Uso de requestAnimationFrame para animaciones
-function animar() {
-  // Lógica de animación
+// Uso de requestAnimationFrame para animaciones.
+// Ejemplo mínimo: arranque único y condición de parada.
+let animacionActiva = true;
+let ultimoTiempo = 0;
+
+function animar(timestamp) {
+  if (!animacionActiva) return; // condición de parada
+  if (timestamp - ultimoTiempo >= 16) {
+    // Lógica de animación (~60 fps: actualizar transform, etc.)
+    ultimoTiempo = timestamp;
+  }
   requestAnimationFrame(animar);
 }
+
+requestAnimationFrame(animar); // arranque único, fuera de la función
+// Para detener el bucle: animacionActiva = false;
 
 // Cachear resultados de cálculos pesados
 const cache = new Map();

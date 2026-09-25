@@ -11,7 +11,9 @@ body { font-family: Arial, sans-serif; margin: 0 auto; padding: 20px; background
 /*Mezcla de colores para variantes*/
 .boton-primario {
   background-color: var(--primario);
-  color: white;
+  /*color explícito: el negro da 6.49:1 sobre este azul;
+    el blanco solo 3.23:1 y no pasa AA*/
+  color: black;
   padding: 20px;
   border-radius: 6px;
   text-align: center;

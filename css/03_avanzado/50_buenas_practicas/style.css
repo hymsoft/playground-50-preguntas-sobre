@@ -47,6 +47,11 @@
     margin: 0 0 var(--espaciado-base);
   }
 
+  /*Modificador BEM: se combina con .card__titulo en el HTML*/
+  .card__titulo--grande {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+  }
+
   /*Párrafo de tarjeta: texto real (no botón)*/
   .card p {
     color: var(--color-texto);
@@ -60,7 +65,7 @@
   .boton {
     background-color: var(--color-primario);
     color: white;
-    padding: var(--espaciado-base);
+    padding: 12px 24px;
     border: none;
     border-radius: var(--radio-borde);
     cursor: pointer;
@@ -78,6 +83,6 @@
     width: 1px;
     height: 1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
   }
 }
