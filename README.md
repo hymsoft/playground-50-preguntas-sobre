@@ -32,7 +32,7 @@ Cada carpeta corresponde a una pregunta numerada del libro (1–50). El número 
 
 ## Portal interactivo
 
-La raíz del repositorio contiene un portal web (`index.html`, `style.css`, `script.js`, `favicon.svg`) para recorrer los ejemplos sin abrir archivos uno por uno. Miralo en funcionamiento aquí: <https://50-preguntas-sobre.vercel.app/>
+La raíz del repositorio contiene un portal web (`index.html`, `style.css`, `script.js`, `favicon.svg`) para recorrer los ejemplos sin abrir archivos uno por uno. Miralo en funcionamiento aquí: <https://playground-50-preguntas-sobre.vercel.app/>
 
 * **Libros** — pestañas HTML, CSS y JavaScript, cada uno con su color.
 * **Niveles** — menú acordeón Básico / Intermedio / Avanzado con buscador.

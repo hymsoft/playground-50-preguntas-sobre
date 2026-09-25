@@ -1,7 +1,7 @@
 "use strict";
 
 const GITHUB_USER = "hymsoft";
-const GITHUB_REPO = "50-preguntas-sobre";
+const GITHUB_REPO = "playground-50-preguntas-sobre";
 const GITHUB_BRANCH = "main";
 
 const GITHUB_ROOT = `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/blob/${GITHUB_BRANCH}`;
