@@ -4,6 +4,8 @@ Códigos de ejemplo de la serie de libros **50 preguntas sobre…** de **Hugo A.
 
 Cada libro explica cada concepto con 50 preguntas y respuestas claras. Este repositorio contiene los ejemplos en código para probar, ver y modificar.
 
+Podés ver los libros completos y pedir tu muestra gratis en PDF en la [landing oficial](https://50-preguntas-sobre.vercel.app/).
+
 ## Aclaración importante
 
 Los códigos de este repositorio **mantienen la esencia de los ejemplos del libro, pero tienen más "estilo"**.

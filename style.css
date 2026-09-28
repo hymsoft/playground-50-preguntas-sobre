@@ -882,6 +882,12 @@ html[data-theme="dark"] .console-count {
   font-weight: 600;
 }
 
+.footer-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .btn-icon {
   display: inline-flex;
   align-items: center;
