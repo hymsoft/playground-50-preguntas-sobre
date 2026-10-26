@@ -163,16 +163,22 @@ button {
 }
 
 .brand-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 34px;
   height: 34px;
-  border-radius: 10px;
-  background: var(--accent-soft);
-  color: var(--accent-ink);
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
+  flex: 0 0 auto;
+}
+
+.brand-mark--oscuro {
+  display: none;
+}
+
+html[data-theme="dark"] .brand-mark--claro {
+  display: none;
+}
+
+html[data-theme="dark"] .brand-mark--oscuro {
+  display: block;
 }
 
 .brand-text {
