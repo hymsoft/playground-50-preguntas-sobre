@@ -142,6 +142,98 @@ async function fetchText(url, retries = 2) {
 }
 
 /**
+ * Busca un elemento en la lista de ejemplos por número de pregunta o carpeta.
+ * @param {Array} list - Lista de ejemplos del libro.
+ * @param {Object} params - Parámetros de búsqueda.
+ * @returns {Object|null}
+ */
+function findItem(list, params = {}) {
+  if (!Array.isArray(list)) return null;
+  const { num, carpeta, q } = params;
+
+  if (carpeta && typeof carpeta === "string" && carpeta.trim()) {
+    const c = carpeta.trim();
+    const found = list.find((e) => e.carpeta === c || e.url === c);
+    if (found) return found;
+  }
+
+  if (num != null && String(num).trim() !== "") {
+    const n = String(num).trim();
+    const nPad2 = n.padStart(2, "0");
+    const nPad3 = n.padStart(3, "0");
+    const found =
+      list.find((e) => String(e.num) === n) ||
+      list.find((e) => String(e.num).padStart(2, "0") === nPad2) ||
+      list.find((e) => String(e.num).padStart(3, "0") === nPad3) ||
+      list.find((e) => e.url && (e.url.includes(`/${nPad2}_`) || e.url.includes(n)));
+    if (found) return found;
+  }
+
+  if (q && typeof q === "string" && q.trim()) {
+    const query = q.trim().toLowerCase();
+    const found = list.find((e) => (e.titulo || "").toLowerCase().includes(query));
+    if (found) return found;
+  }
+
+  return null;
+}
+
+/**
+ * Lee parámetros de ruta desde query string (y fallback a hash).
+ * @returns {{book?:string,num?:string,carpeta?:string,q?:string}}
+ */
+function parseRoute() {
+  const result = {};
+  try {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("book")) result.book = url.searchParams.get("book");
+    if (url.searchParams.get("num")) result.num = url.searchParams.get("num");
+    if (url.searchParams.get("carpeta")) result.carpeta = url.searchParams.get("carpeta");
+    if (url.searchParams.get("q")) result.q = url.searchParams.get("q");
+
+    if (!result.book && url.hash && url.hash.length > 1) {
+      const hash = url.hash.startsWith("#") ? url.hash.slice(1) : url.hash;
+      const parts = hash.replace(/^\//, "").split("/");
+      if (parts[0] && ["html", "css", "js"].includes(parts[0])) {
+        result.book = parts[0];
+        if (parts[1] && /^\d+/.test(parts[1])) {
+          result.num = parts[1].replace(/^0+/, "") || parts[1];
+        }
+      }
+    }
+  } catch (e) {
+    /* ignorar */
+  }
+  return result;
+}
+
+/**
+ * Inicializa ruta con query params: abre libro+pregunta si vienen especificados.
+ */
+async function initRoute() {
+  const route = parseRoute();
+  if (!route.book) return;
+
+  const bookId = String(route.book).toLowerCase();
+  const list = state.booksData[bookId];
+  if (!list) {
+    const status = $("status");
+    if (status) status.textContent = `Libro "${bookId}" no disponible.`;
+    return;
+  }
+
+  await selectBook(bookId);
+
+  const item = findItem(list, route);
+  if (item) {
+    await openExample(item);
+  } else {
+    const status = $("status");
+    if (status) status.textContent = "No se encontró la pregunta solicitada en la URL.";
+  }
+}
+
+/**
  * Carga los datos de todos los libros desde sus archivos JSON y selecciona el primer libro disponible.
  * @fires selectBook - Al terminar, abre el primer libro disponible.
  * @author Hugo Segura
@@ -167,6 +259,12 @@ async function loadBooks() {
   });
 
   renderBookNav();
+
+  const route = parseRoute();
+  if (route.book) {
+    await initRoute();
+    return;
+  }
 
   const available = BOOKS.filter((b) => !b.disabled);
   if (available.length) {
